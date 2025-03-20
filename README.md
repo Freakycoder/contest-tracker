@@ -1,37 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+Contest Tracker
 
-## Getting Started
+Overview
 
-First, run the development server:
+The Contest Tracker is a web application that helps competitive programmers keep track of upcoming and past coding contests from Codeforces, CodeChef, and LeetCode. It provides filtering options, bookmarking capabilities, and links to video solutions for past contests from a YouTube channel.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Fetches upcoming and past contests from Codeforces, CodeChef, and LeetCode.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Displays contest date and time remaining before it starts.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Allows users to filter contests by platform (e.g., Codeforces only or Codeforces + LeetCode).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+Users can bookmark contests for quick access.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Provides a way to attach YouTube solution links for past contests.
 
-## Learn More
+Bonus: Automatically fetches solution links from YouTube.
 
-To learn more about Next.js, take a look at the following resources:
+Bonus: Mobile and tablet responsive UI with dark mode.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Frontend: Next.js (React + TypeScript)
+
+Backend: Node.js with Express (or Django if applicable)
+
+Database: PostgreSQL (managed with Prisma)
+
+APIs: Codeforces API, CodeChef API (if applicable), YouTube Data API
+
+Authentication: NextAuth (if implemented)
+
+State Management: Recoil (or any other state management library used)
+
+Installation & Setup
+
+Prerequisites
+
+Ensure you have the following installed:
+
+Node.js & npm (or yarn)
+
+PostgreSQL (if using a database)
+
+Steps
+
+Clone the repository:
+
+Install dependencies:
+
+Set up environment variables:
+
+Create a .env.local file and add the necessary API keys and database connection details.
+
+Run the development server:
+
+Open http://localhost:3000 in your browser.
+
+Features Breakdown
+
+Fetching Contests
+
+Uses APIs to fetch contests from Codeforces, CodeChef, and LeetCode.
+
+Data is displayed in an organized table or list format.
+
+Filtering Contests
+
+Users can filter contests based on platforms.
+
+Multi-select options allow filtering contests from multiple platforms.
+
+Bookmarking Contests
+
+Users can save contests they are interested in for quick access.
+
+YouTube Solution Links
+
+A separate admin panel allows team members to attach solution links.
+
+Bonus: Automatically fetches YouTube solution links based on contest title.
+
+API Integration
+
+Codeforces API
+
+Endpoint: https://codeforces.com/api/contest.list
+
+Fetches both upcoming and past contests.
+
+CodeChef API (if applicable)
+
+Requires authentication to fetch contest data.
+
+YouTube Data API (for solution links)
+
+Fetches video links matching contest names.
+
+Auto-updates the database when new solutions are uploaded.
+
+Future Improvements
+
+Add reminders/notifications for upcoming contests.
+
+Implement a dashboard for personalized contest tracking.
+
+Support for more contest platforms.
+
+Contributing
+
+If you’d like to contribute, fork the repo and create a pull request. We welcome improvements and bug fixes!
 
 ## Deploy on Vercel
 
