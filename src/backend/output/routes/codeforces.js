@@ -18,7 +18,7 @@ const express_1 = require("express");
 exports.codeforces = (0, express_1.Router)();
 exports.codeforces.get('/contest-list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield axios_1.default.get('https://codeforces.com/api/contest.list');
+        const response = yield axios_1.default.get('https://codeforces.com/api/contest.list?phase=BEFORE&FINISHED?limit=10');
         const responseObject = response.data;
         console.log("response from codeforces: ", responseObject);
         console.log("succesfully fetched contests");

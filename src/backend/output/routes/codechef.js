@@ -18,7 +18,7 @@ const express_1 = require("express");
 exports.codechef = (0, express_1.Router)();
 exports.codechef.get('/contest-list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield axios_1.default.get('https://www.codechef.com/api/list/contests/all');
+        const response = yield axios_1.default.get('https://www.codechef.com/api/list/contests/all?limit=10');
         const futureContestList = response.data.future_contests;
         const pastContestList = response.data.past_contests;
         console.log("recieved list of contest");

@@ -4,7 +4,7 @@ export const codeforces = Router()
 
 codeforces.get('/contest-list', async (req, res) => {
     try {
-        const response = await axios.get('https://codeforces.com/api/contest.list');
+        const response = await axios.get('https://codeforces.com/api/contest.list?phase=BEFORE&FINISHED?limit=10');
         const responseObject = response.data;
         console.log("response from codeforces: ", responseObject);
         console.log("succesfully fetched contests");

@@ -15,7 +15,7 @@ export interface ContestList {
 codechef.get('/contest-list', async (req, res) => {
 
     try {
-        const response = await axios.get('https://www.codechef.com/api/list/contests/all');
+        const response = await axios.get('https://www.codechef.com/api/list/contests/all?limit=10');
         const futureContestList = response.data.future_contests;
         const pastContestList = response.data.past_contests;
 

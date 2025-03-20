@@ -4,7 +4,7 @@ import { Router } from "express"
 export const leetcode = Router()
 
 export interface leetContest {
-    status: "finished" | "upcoming"
+    platform : string
     title: string
     startTime: number
     duration: number
