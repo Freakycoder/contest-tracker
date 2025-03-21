@@ -2,24 +2,21 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-const FloatingBackground: React.FC = () => {
+type FloatingBackgroundProps = {
+  darkMode: boolean;
+};
+
+const FloatingBackground: React.FC<FloatingBackgroundProps> = ({ darkMode }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Create between 15-20 floating elements
   const floatingElements = Array.from({ length: 18 }, (_, i) => ({
-    id: `floating-${i}`,
-    // Randomize initial positions
+    id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    // Randomize sizes between 20px and 60px
     size: Math.floor(Math.random() * 40) + 20,
-    // Randomize animation duration between 20s and 40s
     duration: Math.floor(Math.random() * 20) + 20,
-    // Randomize delay between 0s and 10s
-    delay: Math.random() * 10,
-    // Randomize opacity between 0.05 and 0.15
     opacity: (Math.random() * 0.1) + 5,
-    // Randomize shape (0: circle, 1: square, 2: triangle)
     shape: Math.floor(Math.random() * 3),
   }));
 
@@ -28,15 +25,50 @@ const FloatingBackground: React.FC = () => {
       {floatingElements.map((element) => {
         // Generate different shapes based on the random shape value
         let shapeElement;
+        
+        // Light and dark theme gradient combinations
+        const lightGradients = [
+          "from-blue-300/15 to-purple-400/20",
+          "from-indigo-300/15 to-pink-400/15",
+          "from-cyan-300/15 to-blue-400/20",
+          "from-violet-300/15 to-fuchsia-400/15",
+          "from-sky-300/15 to-indigo-400/15",
+        ];
+        
+        const darkGradients = [
+          "from-blue-500/15 to-purple-600/20",
+          "from-indigo-500/20 to-pink-600/15",
+          "from-cyan-400/15 to-blue-600/20",
+          "from-violet-500/20 to-fuchsia-600/15",
+          "from-sky-400/20 to-indigo-600/20",
+        ];
+        
+        // Select a random gradient based on the theme
+        const gradientIndex = element.id % 5;
+        const gradientClasses = darkMode 
+          ? darkGradients[gradientIndex]
+          : lightGradients[gradientIndex];
+        
+        // Add a subtle glow effect based on the theme
+        const glowColor = darkMode
+          ? element.shape === 0 ? "0 0 40px rgba(139, 92, 246, 0.1)" // Violet glow for circles
+          : element.shape === 1 ? "0 0 40px rgba(59, 130, 246, 0.1)" // Blue glow for squares
+          : "0 0 40px rgba(236, 72, 153, 0.1)" // Pink glow for triangles
+          : element.shape === 0 ? "0 0 40px rgba(147, 197, 253, 0.1)" // Light blue glow for circles
+          : element.shape === 1 ? "0 0 40px rgba(196, 181, 253, 0.1)" // Light purple glow for squares
+          : "0 0 40px rgba(251, 207, 232, 0.1)"; // Light pink glow for triangles
+          
         if (element.shape === 0) {
           // Circle
           shapeElement = (
             <div 
-              className="rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 absolute" 
+              className={`rounded-full bg-gradient-to-br ${gradientClasses} absolute backdrop-blur-sm`} 
               style={{ 
                 width: `${element.size}px`, 
                 height: `${element.size}px`,
-                opacity: element.opacity 
+                opacity: element.opacity,
+                boxShadow: glowColor,
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.03)' : '1px solid rgba(0, 0, 0, 0.03)'
               }}
             />
           );
@@ -44,12 +76,14 @@ const FloatingBackground: React.FC = () => {
           // Square
           shapeElement = (
             <div 
-              className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 absolute rounded-lg" 
+              className={`bg-gradient-to-br ${gradientClasses} absolute rounded-lg backdrop-blur-sm`} 
               style={{ 
                 width: `${element.size}px`, 
                 height: `${element.size}px`,
                 opacity: element.opacity,
-                transform: `rotate(${Math.random() * 45}deg)`
+                transform: `rotate(${Math.random() * 45}deg)`,
+                boxShadow: glowColor,
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.03)' : '1px solid rgba(0, 0, 0, 0.03)'
               }}
             />
           );
@@ -65,11 +99,13 @@ const FloatingBackground: React.FC = () => {
               }}
             >
               <div 
-                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 absolute" 
+                className={`bg-gradient-to-br ${gradientClasses} absolute backdrop-blur-sm`} 
                 style={{ 
                   width: `${element.size * 1.5}px`, 
                   height: `${element.size * 1.5}px`,
-                  transform: `rotate(45deg) translate(-${element.size * 0.2}px, -${element.size * 0.2}px)` 
+                  transform: `rotate(45deg) translate(-${element.size * 0.2}px, -${element.size * 0.2}px)`,
+                  boxShadow: glowColor,
+                  border: darkMode ? '1px solid rgba(255, 255, 255, 0.03)' : '1px solid rgba(0, 0, 0, 0.03)'
                 }}
               />
             </div>
@@ -91,7 +127,6 @@ const FloatingBackground: React.FC = () => {
             }}
             transition={{
               duration: element.duration,
-              delay: element.delay,
               repeat: Infinity,
               repeatType: "reverse",
               ease: "easeInOut",
